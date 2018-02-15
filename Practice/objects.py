@@ -62,7 +62,7 @@ def bonus(x):
     print("the sum of the  numbers from 0 to " + str(x) + " are " + str(string))
     even = 0
     odd = 0
-    for x in range(len(array)):
+    for x in range(len(array)+1):
         if x % 2 == 0:
             even += x
         else:
@@ -73,18 +73,27 @@ def bonus(x):
 
 def main():
     print("***** ELECTRICITY BILL CALCULATOR *****")
+    # display menu
     display_menu()
-    option = int(input("Choose the type of connection: "))
-    while error_check(option):
-        option = int(input("Invalid Choice! Please enter a valid choice"))
-    units = int(input("Enter the number of units(in kWh): "))
-    while error_check_units(units):
-        units = int(input("Invalid input! Please enter a positive value"))
-    result = get_rate(units, option)
-    print(result)
-    print("Would you like to continue to the bonus?")
-    option = int(input("Enter 1 for yes and 0 for no: "))
-    if option == 1:
+    action = 1
+    total = 0
+    while action == 1:
+        option = int(input("Choose the type of connection: "))
+        # error check option
+        while error_check(option):
+            option = int(input("Invalid Choice! Please enter a valid choice"))
+        units = int(input("Enter the number of units(in kWh): "))
+        # error check units
+        while error_check_units(units):
+            units = int(input("Invalid input! Please enter a positive value"))
+        result = get_rate(units, option)
+        total += int(result)
+
+        print("Total energy charge for the customer is: $" + str(result))
+        print("Total Bill due from this connection is: $" + str(total))
+        action = int(input("\nDo you want to continue and calculate another bill?\n"
+                           "If Yes enter 1, if no enter 0. Enter 2 for bonus."))
+    if action == 2:
         print("EXITING ELECTRICITY BILL CALCULATOR")
         print("*** BONUS ***")
         positive_number = int(input("Enter a number: "))
